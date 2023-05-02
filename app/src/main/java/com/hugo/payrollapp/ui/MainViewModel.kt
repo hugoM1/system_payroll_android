@@ -1,6 +1,5 @@
-package com.hugo.payrollapp.ui.home
+package com.hugo.payrollapp.ui
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,20 +10,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val getEmployeeUseCase: GetEmployeeUseCase
 ) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
+    val employeeModel = MutableLiveData<Employee>()
 
-    val empModel = MutableLiveData<Employee>()
-
-    fun onCreate(employeeId: String) {
+    fun onOncreate(employeeId: String){
         viewModelScope.launch {
-            empModel.postValue(getEmployeeUseCase.invoke(employeeId))
+            employeeModel.postValue(getEmployeeUseCase.invoke(employeeId))
         }
     }
 }
