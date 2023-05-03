@@ -16,7 +16,7 @@ class MainViewModel @Inject constructor(
 
     val employeeModel = MutableLiveData<Employee>()
 
-    fun onOncreate(employeeId: String){
+    fun onCreate(employeeId: String){
         viewModelScope.launch {
             employeeModel.postValue(getEmployeeUseCase.invoke(employeeId))
         }

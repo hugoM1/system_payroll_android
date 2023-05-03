@@ -10,4 +10,12 @@ class PayrollRepository @Inject constructor(
     suspend fun getEmployeeById(employeeId: String): Employee{
         return api.getEmployeeById(employeeId)
     }
+
+    suspend fun addNewEmployee(employee: Employee): Employee{
+        return api.addNewEmployee(employee)
+    }
+
+    suspend fun getAllRecentEmployees(): ArrayList<Employee>{
+        return api.getAllRecentEmployees()
+    }
 }

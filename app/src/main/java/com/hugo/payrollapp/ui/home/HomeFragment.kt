@@ -38,9 +38,9 @@ class HomeFragment : Fragment() {
             textView.text = it
         }
 
-        homeViewModel.onCreate("1")
+        homeViewModel.onCreate()
         homeViewModel.empModel.observe(viewLifecycleOwner, Observer {
-            Log.wtf("Que hay?? desde fragment", it.name)
+            Log.wtf("Que hay?? desde fragment", it.toString())
         })
 
         return root

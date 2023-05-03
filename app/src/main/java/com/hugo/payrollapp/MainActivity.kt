@@ -1,10 +1,10 @@
 package com.hugo.payrollapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import androidx.activity.viewModels
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,8 +15,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.hugo.payrollapp.databinding.ActivityMainBinding
+import com.hugo.payrollapp.ui.Employee.CreateEmployeeActivity
 import com.hugo.payrollapp.ui.MainViewModel
-import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
 
         binding.appBarMain.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val theIntent = Intent(this, CreateEmployeeActivity::class.java)
+            startActivity(theIntent)
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        mainViewModel.onOncreate("1")
+        mainViewModel.onCreate("1")
         mainViewModel.employeeModel.observe(this, Observer {
             Log.wtf("Que hay??", it.name)
         })

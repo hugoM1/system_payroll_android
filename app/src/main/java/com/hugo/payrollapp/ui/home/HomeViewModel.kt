@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hugo.payrollapp.data.model.Employee
+import com.hugo.payrollapp.domain.GetAllRecentEmployeesUseCase
 import com.hugo.payrollapp.domain.GetEmployeeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -12,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getEmployeeUseCase: GetEmployeeUseCase
+    private val getAllRecentEmployeesUseCase: GetAllRecentEmployeesUseCase,
 ) : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
@@ -20,11 +21,11 @@ class HomeViewModel @Inject constructor(
     }
     val text: LiveData<String> = _text
 
-    val empModel = MutableLiveData<Employee>()
+    val empModel = MutableLiveData<ArrayList<Employee>>()
 
-    fun onCreate(employeeId: String) {
+    fun onCreate() {
         viewModelScope.launch {
-            empModel.postValue(getEmployeeUseCase.invoke(employeeId))
+            empModel.postValue(getAllRecentEmployeesUseCase.invoke())
         }
     }
 }

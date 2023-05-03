@@ -12,4 +12,18 @@ class PayrollService @Inject constructor(private val api: PayrollApiClient) {
             response.body()!!
         }
     }
+
+    suspend fun addNewEmployee(employee: Employee): Employee{
+        return withContext(Dispatchers.IO){
+            val response = api.addNewEmployee(employee)
+            response.body()!!
+        }
+    }
+
+    suspend fun getAllRecentEmployees(): ArrayList<Employee>{
+        return withContext(Dispatchers.IO){
+            val response = api.getAllRecentEmployees()
+            response.body()!!
+        }
+    }
 }
