@@ -23,7 +23,8 @@ class Transformer {
                             "\"bonusCargo\":36.0," +
                             "\"taxISR\":34.0," +
                             "\"valesDespensa\":45.0," +
-                            "\"paymentDate\":\"1923-02-02\"}}"
+                            "\"paymentDate\":1923-02-02," +
+                            "\"total_salary\":90.0\"}}"
                 )
             )
             reader.isLenient = true

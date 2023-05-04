@@ -9,12 +9,16 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.hugo.payrollapp.data.model.Employee
 import com.hugo.payrollapp.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
+    private lateinit var adapter: EmployeeAdapter
+    private val employeeList = mutableListOf<Employee>()
     private var _binding: FragmentHomeBinding? = null
 
     private val homeViewModel: HomeViewModel by viewModels()
@@ -40,10 +44,22 @@ class HomeFragment : Fragment() {
 
         homeViewModel.onCreate()
         homeViewModel.empModel.observe(viewLifecycleOwner, Observer {
-            Log.wtf("Que hay?? desde fragment", it.toString())
+            adapter.setEmployeesList(it)
         })
 
+        initRecyclerView()
+
         return root
+    }
+
+    private fun initRecyclerView() {
+        adapter = EmployeeAdapter(employeeList, employeeOnClick())
+        binding.recentEmployees.layoutManager = LinearLayoutManager(activity)
+        binding.recentEmployees.adapter = adapter
+    }
+
+    private fun employeeOnClick() = EmployeeAdapter.OnEmployeeClickListener { employee ->
+        Log.wtf("Click", employee.name)
     }
 
     override fun onDestroyView() {
